@@ -1,0 +1,13 @@
+.plantContainer {
+    width:100vw;
+    height:85vh;
+    /* background-color: rgba(255,255,255,.5); */
+    /* margin:auto; */
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow: scroll;
+    position:fixed;
+    bottom:3%;
+}

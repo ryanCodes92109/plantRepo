@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+import Header from './header/Header';
 import './App.css';
+import PlantContainer from './plantContainer/PlantContainer';
+import { useEffect, useState } from 'react';
 
 function App() {
+
+  const api = process.env.REACT_APP_API_KEY
+  const [plantState, setPlantState] = useState([])
+
+  useEffect(() => {
+    fetch(`https://perenual.com/api/species-list?key=sk-${api}`)
+    .then(res => res.json())
+    .then(data => setPlantState(data.data))
+  }, [])
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <PlantContainer 
+        plantState={plantState}   
+      />
     </div>
   );
 }
