@@ -5,13 +5,22 @@ import { useEffect, useState } from 'react';
 
 function App() {
 
-  const api = process.env.REACT_APP_API_KEY
   const [plantState, setPlantState] = useState([])
+  const [page,setPage] = useState(1)
+  const api = process.env.REACT_APP_API_KEY
 
   useEffect(() => {
-    fetch(`https://perenual.com/api/species-list?key=sk-${api}`)
-    .then(res => res.json())
-    .then(data => setPlantState(data.data))
+    const plantFetch = async () => {
+      try {
+        const res = await fetch(`https://perenual.com/api/species-list?page=${page}&key=sk-${api}`)
+        const data = await res.json();
+        setPlantState(data.data)
+        setPage(prevPage => prevPage + 1)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    plantFetch()
   }, [])
 
 
